@@ -1,0 +1,27 @@
+$def with (jugadores, rama, mensaje)
+<div class="encabezado"><h1>Lista de jugadores · ${rama.capitalize()}</h1><a class="btn principal" href="/entrenador/jugadores/nuevo">+ Agregar jugador</a></div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>#</th><th>Nombre</th><th>Matrícula</th><th>Carrera</th><th>Posición</th><th>% Asistencia</th><th>Estado</th><th>Acciones</th></tr></thead>
+<tbody>
+$for j in jugadores:
+  <tr>
+    <td>$j.numero_playera</td><td>$j.nombre</td><td>$j.matricula</td><td>$j.carrera</td><td>$j.posicion</td>
+    <td>$j.porcentaje%  <small>($j.asistencias/$j.total)</small></td>
+    <td><span class="badge $j.estado">$j.estado</span>
+    $if j.posible_baja:
+      <span class="badge aviso">posible baja</span>
+    </td>
+    <td>
+    $if j.estado == 'activo':
+      <form method="post" action="/entrenador/jugadores/estado" onsubmit="return confirm('¿Dar de baja a este jugador?')">
+        <input type="hidden" name="id" value="$j.id"><input type="hidden" name="estado" value="baja">
+        <button class="btn peligro">Dar de baja</button></form>
+    $else:
+      <form method="post" action="/entrenador/jugadores/estado">
+        <input type="hidden" name="id" value="$j.id"><input type="hidden" name="estado" value="activo">
+        <button class="btn">Reactivar</button></form>
+    </td>
+  </tr>
+</tbody></table></div>

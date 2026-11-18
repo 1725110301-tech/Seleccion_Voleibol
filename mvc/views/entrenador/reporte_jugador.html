@@ -1,0 +1,28 @@
+$def with (jugadores, jugador_id, reporte, desde, hasta, rama)
+<h1>Reporte individual · ${rama.capitalize()}</h1>
+<form method="get" class="filtros">
+  <label>Jugador
+    <select name="jugador_id" required><option value="">— Selecciona —</option>
+    $for j in jugadores:
+      <option value="$j.id" $('selected' if jugador_id == j.id else '')>$j.numero_playera · $j.nombre</option>
+    </select></label>
+  <label>Desde<input type="date" name="desde" value="$desde"></label>
+  <label>Hasta<input type="date" name="hasta" value="$hasta"></label>
+  <button class="btn principal">Ver reporte</button>
+</form>
+$if reporte:
+  <div class="cards">
+    <div class="card"><strong>$reporte['presentes']</strong><span>Días que entrenó</span></div>
+    <div class="card"><strong>$reporte['faltas']</strong><span>Faltas</span></div>
+    <div class="card"><strong>$reporte['porcentaje']%</strong><span>Asistencia</span></div>
+  </div>
+  <h2>Disponible para partidos</h2>
+  <ul>
+  $for d in reporte['disponible']:
+    <li>$d.fecha · $d.rival</li>
+  </ul>
+  <h2>Convocado a torneos</h2>
+  <ul>
+  $for c in reporte['convocado']:
+    <li>$c.nombre ($c.fecha_inicio a $c.fecha_fin)</li>
+  </ul>

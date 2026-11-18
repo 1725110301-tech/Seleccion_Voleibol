@@ -1,0 +1,52 @@
+* { box-sizing: border-box; }
+:root { --azul: #1f3a5f; --verde: #4caf2f; --gris: #f4f6fb; --texto: #1c2434; }
+body { margin: 0; font-family: "Montserrat", system-ui, sans-serif; color: var(--texto); background: var(--gris); }
+h1 { font-size: 1.4rem; } h2 { font-size: 1.1rem; margin-top: 1.5rem; }
+.logo { width: 90px; height: 90px; border: 2px dashed var(--verde); border-radius: 12px; display: flex;
+        align-items: center; justify-content: center; font-size: .7rem; color: #fff; }
+.menu { position: fixed; inset: 0 auto 0 0; width: 250px; background: var(--azul); color: #fff; padding: 1.2rem;
+        display: flex; flex-direction: column; gap: .8rem; overflow-y: auto; }
+.menu nav { display: flex; flex-direction: column; gap: .2rem; flex: 1; }
+.menu nav a, .salir { color: #dbe4f3; text-decoration: none; padding: .55rem .7rem; border-radius: 8px; font-size: .9rem; }
+.menu nav a:hover, .menu nav a.activo { background: rgba(255,255,255,.15); color: #fff; }
+.usuario small { display: block; opacity: .7; }
+.filtro-rama select { width: 100%; padding: .4rem; border-radius: 6px; }
+.contenido { margin-left: 250px; padding: 1.5rem 2rem; }
+.hamburguesa { display: none; }
+.encabezado { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.btn { display: inline-block; border: 1px solid #c8d0e0; background: #fff; padding: .5rem .9rem; border-radius: 8px;
+       cursor: pointer; text-decoration: none; color: var(--texto); font-size: .85rem; }
+.btn.principal { background: var(--verde); border-color: var(--verde); color: #fff; }
+.btn.peligro { background: #fde8e8; border-color: #f3b4b4; color: #a32424; }
+.tabla-wrap { overflow-x: auto; background: #fff; border-radius: 10px; }
+.tabla { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.tabla th, .tabla td { padding: .6rem .8rem; text-align: left; border-bottom: 1px solid #eceff6; }
+.badge { padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; background: #e6ebf5; }
+.badge.activo, .badge.presente, .badge.ganado { background: #dff3d8; color: #2c6a14; }
+.badge.baja, .badge.falta, .badge.perdido { background: #fde0e0; color: #a32424; }
+.badge.aviso, .badge.justificada { background: #fff1cc; color: #8a6100; }
+.alerta { padding: .7rem 1rem; border-radius: 8px; margin: .8rem 0; font-size: .85rem; }
+.alerta.error { background: #fde8e8; color: #a32424; } .alerta.ok { background: #e3f6dc; color: #2c6a14; }
+.filtros, .formulario { display: flex; flex-wrap: wrap; gap: .8rem; align-items: end; background: #fff; padding: 1rem;
+                        border-radius: 10px; margin: 1rem 0; }
+label { display: flex; flex-direction: column; font-size: .8rem; gap: .25rem; }
+input, select { padding: .5rem; border: 1px solid #c8d0e0; border-radius: 8px; font: inherit; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.card { background: #fff; border-radius: 12px; padding: 1.1rem; text-decoration: none; color: inherit;
+        display: flex; flex-direction: column; gap: .3rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.card strong { font-size: 1.2rem; } .card span { font-size: .8rem; color: #667; }
+.ayuda { color: #667; font-size: .85rem; }
+/* login */
+.login-body { display: flex; min-height: 100vh; }
+.login-izq { flex: 1; background: var(--azul); color: #fff; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+.login-izq h1 { font-size: 2.2rem; margin: .4rem 0; } .etiqueta { color: var(--verde); font-size: .75rem; letter-spacing: .08em; }
+.login-der { flex: 1; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+.tarjeta { background: #fff; padding: 2rem; border-radius: 12px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: .6rem; }
+.roles span { background: #e6ebf5; padding: .15rem .5rem; border-radius: 6px; font-size: .75rem; }
+@media (max-width: 768px) {
+  .menu { transform: translateX(-100%); transition: transform .2s; z-index: 10; }
+  .menu-abierto .menu { transform: none; }
+  .contenido { margin-left: 0; padding: 4rem 1rem 1rem; }
+  .hamburguesa { display: block; position: fixed; top: .6rem; left: .6rem; z-index: 11; font-size: 1.3rem; border: 0; background: var(--azul); color: #fff; border-radius: 8px; padding: .3rem .7rem; }
+  .login-body { flex-direction: column; } .login-izq { min-height: 40vh; }
+}

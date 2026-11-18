@@ -1,0 +1,30 @@
+$def with (datos, rama)
+<h1>Reportes · ${rama.capitalize()}</h1>
+<form method="get" class="filtros">
+  <label>Rama
+    <select name="rama">
+      <option value="femenil" $('selected' if rama == 'femenil' else '')>Femenil</option>
+      <option value="varonil" $('selected' if rama == 'varonil' else '')>Varonil</option>
+    </select></label>
+  <button class="btn principal">Consultar</button>
+  <a class="btn" href="/coordinacion/reportes?rama=$rama&pdf=1">Descargar PDF</a>
+</form>
+<div class="cards">
+  <div class="card"><strong>${len(datos['jugadores'])}</strong><span>Jugadores activos</span></div>
+  <div class="card"><strong>$datos['ganados']</strong><span>Partidos ganados</span></div>
+  <div class="card"><strong>$datos['perdidos']</strong><span>Partidos perdidos</span></div>
+</div>
+<h2>Jugadores activos</h2>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>#</th><th>Nombre</th><th>Posición</th><th>Carrera</th></tr></thead>
+<tbody>
+$for j in datos['jugadores']:
+  <tr><td>$j.numero_playera</td><td>$j.nombre</td><td>$j.posicion</td><td>$j.carrera</td></tr>
+</tbody></table></div>
+<h2>Resultados de liga y torneos</h2>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Fecha</th><th>Rival</th><th>Competencia</th><th>Sets</th><th>Resultado</th></tr></thead>
+<tbody>
+$for p in datos['partidos']:
+  <tr><td>$p.fecha</td><td>$p.rival</td><td>${p.competencia or '-'}</td><td>${p.sets or '-'}</td><td>${p.resultado or '-'}</td></tr>
+</tbody></table></div>

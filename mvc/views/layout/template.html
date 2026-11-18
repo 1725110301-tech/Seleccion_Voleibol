@@ -1,0 +1,34 @@
+$def with (contenido, titulo, menu, usuario, rama, ruta)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$titulo · Selección de Voleibol UTEC</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<button class="hamburguesa" onclick="document.body.classList.toggle('menu-abierto')">☰</button>
+<aside class="menu">
+  <div class="logo">LOGO UTEC</div>
+  <div class="usuario">$usuario['nombre']<small>$usuario['rol'].capitalize()</small></div>
+  <form class="filtro-rama" method="get" action="/rama">
+    <input type="hidden" name="volver" value="$ruta">
+    <label>Rama</label>
+    <select name="rama" onchange="this.form.submit()">
+      <option value="femenil" $('selected' if rama == 'femenil' else '')>Femenil</option>
+      <option value="varonil" $('selected' if rama == 'varonil' else '')>Varonil</option>
+    </select>
+  </form>
+  <nav>
+  $for etiqueta, url in menu:
+    <a href="$url" class="$('activo' if ruta.split('?')[0] == url else '')">$etiqueta</a>
+  </nav>
+  <a class="salir" href="/logout">Cerrar sesión</a>
+</aside>
+<main class="contenido">
+  $:contenido
+</main>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

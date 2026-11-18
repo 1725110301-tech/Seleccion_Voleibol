@@ -1,0 +1,14 @@
+$def with (filas, desde, hasta, rama)
+<h1>Historial de asistencias · ${rama.capitalize()}</h1>
+<form method="get" class="filtros">
+  <label>Desde<input type="date" name="desde" value="$desde"></label>
+  <label>Hasta<input type="date" name="hasta" value="$hasta"></label>
+  <button class="btn principal">Filtrar</button>
+</form>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Fecha</th><th>Hora</th><th>Tipo</th><th>#</th><th>Jugador</th><th>Estado</th><th>Motivo</th></tr></thead>
+<tbody>
+$for f in filas:
+  <tr><td>$f.fecha</td><td>${str(f.hora_inicio)[:5]}</td><td>$f.tipo</td><td>$f.numero_playera</td><td>$f.nombre</td>
+  <td><span class="badge $f.estado">$f.estado</span></td><td>${f.motivo or ''}</td></tr>
+</tbody></table></div>

@@ -1,0 +1,19 @@
+$def with (lista, rama, error, mensaje)
+<h1>Entrenamientos · ${rama.capitalize()}</h1>
+$if error:
+  <div class="alerta error">$error</div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<form method="post" class="filtros">
+  <strong>Entrenamiento extra</strong>
+  <label>Fecha<input type="date" name="fecha" required></label>
+  <label>Inicio<input type="time" name="hora_inicio" required></label>
+  <label>Fin<input type="time" name="hora_fin" required></label>
+  <button class="btn principal">Crear</button>
+</form>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Fecha</th><th>Horario</th><th>Tipo</th><th>Estado</th></tr></thead>
+<tbody>
+$for e in lista:
+  <tr><td>$e.fecha</td><td>${str(e.hora_inicio)[:5]} - ${str(e.hora_fin)[:5]}</td><td>$e.tipo</td><td>$e.estado</td></tr>
+</tbody></table></div>

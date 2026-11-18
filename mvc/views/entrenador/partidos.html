@@ -1,0 +1,27 @@
+$def with (partidos, competencias, rama, errores, mensaje)
+<h1>Partidos · ${rama.capitalize()}</h1>
+$if errores:
+  <div class="alerta error"><ul>
+  $for e in errores:
+    <li>$e</li>
+  </ul></div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<form method="post" class="filtros">
+  <label>Competencia
+    <select name="competencia_id"><option value="">— Sin competencia —</option>
+    $for c in competencias:
+      <option value="$c.id">$c.nombre</option>
+    </select></label>
+  <label>Rival<input name="rival" required></label>
+  <label>Fecha<input type="date" name="fecha" required></label>
+  <label>Sets<input name="sets" placeholder="25-20, 22-25, 25-18" required></label>
+  <label>Resultado<select name="resultado"><option value="ganado">Ganado</option><option value="perdido">Perdido</option></select></label>
+  <button class="btn principal">Guardar partido</button>
+</form>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Fecha</th><th>Rival</th><th>Competencia</th><th>Sets</th><th>Resultado</th></tr></thead>
+<tbody>
+$for p in partidos:
+  <tr><td>$p.fecha</td><td>$p.rival</td><td>${p.competencia or '-'}</td><td>${p.sets or '-'}</td><td><span class="badge ${p.resultado or ''}">${p.resultado or '-'}</span></td></tr>
+</tbody></table></div>

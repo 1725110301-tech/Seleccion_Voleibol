@@ -1,0 +1,6 @@
+web.py>=0.62
+psycopg2-binary
+python-dotenv
+bcrypt
+reportlab
+gunicorn

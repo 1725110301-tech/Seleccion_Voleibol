@@ -1,0 +1,28 @@
+$def with (errores, datos, rama)
+<h1>Agregar jugador · ${rama.capitalize()}</h1>
+$if errores:
+  <div class="alerta error"><ul>
+  $for e in errores:
+    <li>$e</li>
+  </ul></div>
+<form method="post" action="/entrenador/jugadores/nuevo" class="formulario">
+  <label>Nombre completo<input name="nombre" value="$datos.get('nombre', '')" required></label>
+  <label>Matrícula<input name="matricula" maxlength="10" value="$datos.get('matricula', '')" required></label>
+  <label>Correo<input type="email" name="correo" value="$datos.get('correo', '')" required></label>
+  <label>Teléfono<input name="telefono" maxlength="10" value="$datos.get('telefono', '')"></label>
+  <label>Edad<input type="number" name="edad" min="15" max="60" value="$datos.get('edad', '')" required></label>
+  <label>Cuatrimestre<input type="number" name="cuatrimestre" min="1" max="11" value="$datos.get('cuatrimestre', '')" required></label>
+  <label>Carrera<input name="carrera" value="$datos.get('carrera', '')" required></label>
+  <label>Rama
+    <select name="rama">
+      <option value="femenil" $('selected' if datos.get('rama', rama) == 'femenil' else '')>Femenil</option>
+      <option value="varonil" $('selected' if datos.get('rama', rama) == 'varonil' else '')>Varonil</option>
+    </select></label>
+  <label>Posición
+    <select name="posicion">
+      $for p in ['colocador', 'opuesto', 'central', 'receptor', 'libero']:
+        <option value="$p" $('selected' if datos.get('posicion') == p else '')>${p.capitalize()}</option>
+    </select></label>
+  <label>Número de playera<input type="number" name="numero_playera" min="0" max="99" value="$datos.get('numero_playera', '')" required></label>
+  <div class="acciones"><button class="btn principal">Guardar</button> <a class="btn" href="/entrenador/jugadores">Cancelar</a></div>
+</form>

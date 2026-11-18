@@ -1,0 +1,27 @@
+$def with (partidos, partido, jugadores, actuales, limite, rama, error, mensaje)
+<h1>Disponibilidad · ${rama.capitalize()}</h1>
+$if error:
+  <div class="alerta error">$error</div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<form method="get" class="filtros">
+  <label>Partido de liga
+    <select name="partido_id" onchange="this.form.submit()"><option value="">— Selecciona —</option>
+    $for p in partidos:
+      <option value="$p.id" $('selected' if partido and partido.id == p.id else '')>$p.fecha · vs $p.rival</option>
+    </select></label>
+</form>
+$if partido:
+  <p class="ayuda">Puedes modificar hasta el sábado <b>$limite</b>.</p>
+  <form method="post">
+    <input type="hidden" name="partido_id" value="$partido.id">
+    <div class="tabla-wrap"><table class="tabla">
+    <thead><tr><th>#</th><th>Jugador</th><th>Puede asistir</th><th>No puede</th></tr></thead>
+    <tbody>
+    $for j in jugadores:
+      <tr><td>$j.numero_playera</td><td>$j.nombre</td>
+      <td><input type="radio" name="disp_$j.id" value="si" $('checked' if actuales.get(j.id) is True else '') required></td>
+      <td><input type="radio" name="disp_$j.id" value="no" $('checked' if actuales.get(j.id) is False else '')></td></tr>
+    </tbody></table></div>
+    <button class="btn principal">Guardar disponibilidad</button>
+  </form>

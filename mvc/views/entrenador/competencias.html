@@ -1,0 +1,22 @@
+$def with (competencias, errores, mensaje)
+<h1>Ligas y torneos</h1>
+$if errores:
+  <div class="alerta error"><ul>
+  $for e in errores:
+    <li>$e</li>
+  </ul></div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<form method="post" class="filtros">
+  <label>Nombre<input name="nombre" required></label>
+  <label>Tipo<select name="tipo"><option value="liga">Liga</option><option value="torneo">Torneo</option></select></label>
+  <label>Inicio<input type="date" name="fecha_inicio" required></label>
+  <label>Fin<input type="date" name="fecha_fin" required></label>
+  <button class="btn principal">Guardar</button>
+</form>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Nombre</th><th>Tipo</th><th>Inicio</th><th>Fin</th></tr></thead>
+<tbody>
+$for c in competencias:
+  <tr><td>$c.nombre</td><td>$c.tipo</td><td>$c.fecha_inicio</td><td>$c.fecha_fin</td></tr>
+</tbody></table></div>

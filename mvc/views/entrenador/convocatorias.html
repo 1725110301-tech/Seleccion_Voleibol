@@ -1,0 +1,24 @@
+$def with (torneos, competencia_id, jugadores, convocados, rama, error, mensaje)
+<h1>Convocatoria a torneo · ${rama.capitalize()}</h1>
+$if error:
+  <div class="alerta error">$error</div>
+$if mensaje:
+  <div class="alerta ok">$mensaje</div>
+<form method="get" class="filtros">
+  <label>Torneo
+    <select name="competencia_id" onchange="this.form.submit()"><option value="">— Selecciona —</option>
+    $for t in torneos:
+      <option value="$t.id" $('selected' if competencia_id == t.id else '')>$t.nombre</option>
+    </select></label>
+</form>
+$if competencia_id:
+  <form method="post">
+    <input type="hidden" name="competencia_id" value="$competencia_id">
+    <p class="ayuda">Máximo 12 jugadores activos. Seleccionados: <b id="contador">0</b>/12</p>
+    <div class="tabla-wrap"><table class="tabla"><tbody>
+    $for j in jugadores:
+      <tr><td><input type="checkbox" class="conv" name="jugadores" value="$j.id" $('checked' if j.id in convocados else '')></td>
+      <td>$j.numero_playera</td><td>$j.nombre</td><td>$j.posicion</td></tr>
+    </tbody></table></div>
+    <button class="btn principal">Guardar convocatoria</button>
+  </form>

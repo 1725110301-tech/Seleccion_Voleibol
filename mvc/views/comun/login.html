@@ -1,0 +1,35 @@
+$def with (mensaje, usuario)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iniciar sesión · Selección de Voleibol UTEC</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="login-body">
+<section class="login-izq">
+  <div class="logo">LOGO UTEC</div>
+  <div class="login-texto">
+    <span class="etiqueta">SISTEMA DE GESTIÓN</span>
+    <h1>Selección de Voleibol</h1>
+    <p>Control de jugadores, entrenamientos, asistencias, partidos y reportes de la selección de la Universidad Tecnológica de Tulancingo.</p>
+  </div>
+  <footer>Rama femenil y varonil · Liga Municipal · Torneo Regional</footer>
+</section>
+<section class="login-der">
+  <form class="tarjeta" method="post" action="/login">
+    <h2>INICIAR SESIÓN</h2>
+    <p class="ayuda">Ingresa con tu usuario asignado. El sistema mostrará las opciones de tu rol.</p>
+    <label>Usuario</label>
+    <input type="text" name="usuario" value="$usuario" placeholder="Ej. felix.entrenador" required autofocus>
+    <label>Contraseña</label>
+    <input type="password" name="contrasena" placeholder="••••••••" required>
+    <button class="btn principal" type="submit">Iniciar sesión</button>
+    $if mensaje:
+      <div class="alerta error">$mensaje</div>
+    <p class="roles">Roles: <span>Entrenador</span> <span>Capitán</span> <span>Coordinación</span></p>
+  </form>
+</section>
+</body>
+</html>

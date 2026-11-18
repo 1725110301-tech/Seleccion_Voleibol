@@ -1,0 +1,22 @@
+$def with (reporte, desde, hasta, rama)
+<h1>Reporte · ${rama.capitalize()}</h1>
+<form method="get" class="filtros">
+  <label>Desde<input type="date" name="desde" value="$desde"></label>
+  <label>Hasta<input type="date" name="hasta" value="$hasta"></label>
+  <button class="btn principal">Generar reporte</button>
+</form>
+<p>Partidos ganados: <b>$reporte['ganados']</b> · perdidos: <b>$reporte['perdidos']</b></p>
+<h2>Asistencias</h2>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>#</th><th>Jugador</th><th>Presentes</th><th>Faltas</th><th>Justificadas</th><th>% Asistencia</th></tr></thead>
+<tbody>
+$for j in reporte['jugadores']:
+  <tr><td>$j.numero_playera</td><td>$j.nombre</td><td>$j.asistencias</td><td>$j.faltas</td><td>$j.justificadas</td><td>$j.porcentaje%</td></tr>
+</tbody></table></div>
+<h2>Partidos</h2>
+<div class="tabla-wrap"><table class="tabla">
+<thead><tr><th>Fecha</th><th>Rival</th><th>Sets</th><th>Resultado</th></tr></thead>
+<tbody>
+$for p in reporte['partidos']:
+  <tr><td>$p.fecha</td><td>$p.rival</td><td>${p.sets or '-'}</td><td>${p.resultado or '-'}</td></tr>
+</tbody></table></div>
